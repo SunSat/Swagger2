@@ -17,6 +17,7 @@
         <java.version>11</java.version>
         <repackage.classifier/>
         <spring-native.version>0.11.2</spring-native.version>
+        <skip.open.api.generation>false</skip.open.api.generation>
     </properties>
     <dependencies>
         <dependency>
@@ -80,6 +81,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
+                            <skip>${skip.open.api.generation}</skip>
                             <addCompileSourceRoot>true</addCompileSourceRoot>
                             <inputSpec>${project.basedir}/src/main/resources/openapi.yml</inputSpec>
                             <generatorName>spring</generatorName>
@@ -105,6 +107,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
+                            <skip>${skip.open.api.generation}</skip>
                             <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
                             <resources>
                                 <resource>
@@ -129,6 +132,7 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <skip>${skip.open.api.generation}</skip>
                     <filesets>
                         <fileset>
                             <directory>${project.build.directory}/generated-sources/openapi</directory>
