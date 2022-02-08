@@ -4,7 +4,7 @@ info:
   description: Book CRUD API.
   version: 1.0.0
 servers:
-  - url: /v2
+  - url: /v3
 paths:
   /book:
     get:
@@ -45,9 +45,12 @@ components:
         id:
           type: integer
           format: int64
-        title:
+        name:
           type: string
           example: Oathbringer
         author:
           type: string
           example: Brandon Sanderson
+        publishedDate:
+          type: date
+          example: Published Date

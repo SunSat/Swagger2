@@ -72,11 +72,30 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <delete file="${project.basedir}/src/main/java/com/example/swagger2/gen" />
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
                 <version>5.4.0</version>
                 <executions>
                     <execution>
+                        <phase>generate-sources</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
@@ -85,8 +104,8 @@
                             <addCompileSourceRoot>true</addCompileSourceRoot>
                             <inputSpec>${project.basedir}/src/main/resources/openapi.yml</inputSpec>
                             <generatorName>spring</generatorName>
-                            <apiPackage>com.example.swagger2.api</apiPackage>
-                            <modelPackage>com.example.swagger2.model</modelPackage>
+                            <apiPackage>com.example.swagger2.gen.api</apiPackage>
+                            <modelPackage>com.example.swagger2.gen.model</modelPackage>
                             <configOptions>
                                 <sourceFolder>src/main/java</sourceFolder>
                                 <interfaceOnly>true</interfaceOnly>
@@ -101,7 +120,6 @@
                 <executions>
                     <execution>
                         <id>copy-resources</id>
-                        <!-- here the phase you need -->
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>copy-resources</goal>
@@ -120,6 +138,7 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
                 <version>3.1.0</version>
                 <executions>
